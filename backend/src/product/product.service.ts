@@ -9,4 +9,10 @@ export class ProductService {
     @InjectRepository(Product)
     private productRepository: Repository<Product>,
   ) {}
+
+  async create() {}
+  async findAll() {}
+  async findOne() {}
+  async update() {}
+  async remove() {}
 }
