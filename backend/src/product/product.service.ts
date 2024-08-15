@@ -11,16 +11,24 @@ export class ProductService {
   ) {}
 
   async create(productData: Partial<Product>): Promise<Product> {
-    return;
+    const product = this.productRepository.create(productData);
+    return await this.productRepository.save(product);
   }
+
   async findAll(): Promise<Product[]> {
-    return;
+    return await this.productRepository.find();
   }
+
   async findOne(id: number): Promise<Product> {
-    return;
+    return await this.productRepository.findOne({ where: { id } });
   }
+
   async update(id: number, productData: Partial<Product>) {
-    return;
+    await this.productRepository.update(id, productData);
+    return await this.findOne(id);
   }
-  async remove(id: number): Promise<void> {}
+
+  async remove(id: number): Promise<void> {
+    await this.productRepository.delete(id);
+  }
 }
