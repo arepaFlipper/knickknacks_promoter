@@ -49,7 +49,7 @@ describe('ProductService', () => {
       jest.spyOn(repo, 'create').mockReturnValue(productData as Product);
       jest.spyOn(repo, 'save').mockResolvedValue(savedProduct as Product);
 
-      const result = await service.create(); //.create(productData);
+      const result = await service.create(productData);
       expect(result).toEqual(savedProduct);
       expect(repo.create).toEqual(productData);
       expect(repo.save).toEqual(productData);
@@ -80,7 +80,7 @@ describe('ProductService', () => {
       jest.spyOn(repo, 'update').mockResolvedValue(undefined);
       jest.spyOn(repo, 'findOne').mockResolvedValue(updatedProduct as Product);
 
-      const result = await service.update(); //.update(productId, updateData);
+      const result = await service.update(productId, updateData);
       expect(result).toEqual(updatedProduct);
       expect(repo.update).toHaveBeenCalledWith(updatedProduct);
       expect(repo.findOne).toHaveBeenCalledWith({
@@ -91,11 +91,11 @@ describe('ProductService', () => {
   });
 
   describe('remove', () => {
-    it('should remove a product', async () => {
+    it('should remove a product 🥸', async () => {
       const productId = 1;
       jest.spyOn(repo, 'delete').mockResolvedValue(undefined);
 
-      await service.remove(); //.remove(productId);
+      await service.remove(productId);
 
       expect(repo.delete).toHaveBeenCalledWith(productId);
     });

@@ -10,9 +10,17 @@ export class ProductService {
     private productRepository: Repository<Product>,
   ) {}
 
-  async create() {}
-  async findAll() {}
-  async findOne() {}
-  async update() {}
-  async remove() {}
+  async create(productData: Partial<Product>): Promise<Product> {
+    return;
+  }
+  async findAll(): Promise<Product[]> {
+    return;
+  }
+  async findOne(id: number): Promise<Product> {
+    return;
+  }
+  async update(id: number, productData: Partial<Product>) {
+    return;
+  }
+  async remove(id: number): Promise<void> {}
 }
