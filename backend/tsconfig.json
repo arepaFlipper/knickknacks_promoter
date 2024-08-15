@@ -17,6 +17,9 @@
     "strictBindCallApply": false,
     "forceConsistentCasingInFileNames": false,
     "noUnusedLocals": false,
+    "paths": {
+      "src/*": ["./src/*"]
+    },
     "noFallthroughCasesInSwitch": false
   }
 }
