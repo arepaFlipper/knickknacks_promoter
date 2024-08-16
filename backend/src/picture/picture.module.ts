@@ -1,6 +1,9 @@
 import { Module } from '@nestjs/common';
-import { PictureController } from './picture.controller';
 import { PictureService } from './picture.service';
+import { PictureController } from './picture.controller';
 
-@Module({ controllers: [PictureController], providers: [PictureService] })
+@Module({
+  controllers: [PictureController],
+  providers: [PictureService],
+})
 export class PictureModule {}
