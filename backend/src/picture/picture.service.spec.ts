@@ -117,12 +117,12 @@ describe('PictureService', () => {
       });
     });
 
-    describe('remove', () => {
+    describe('remove 🗑️', () => {
       it('should remove a picture', async () => {
         const pictureId = 1;
         jest.spyOn(repo, 'delete').mockResolvedValue(undefined);
 
-        await service.remove(pictureId);
+        service.remove(pictureId);
         expect(repo.delete).toHaveBeenCalledWith(pictureId);
       });
     });

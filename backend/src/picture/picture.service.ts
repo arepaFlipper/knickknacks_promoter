@@ -39,8 +39,8 @@ export class PictureService {
     return updatedPicture;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} picture`;
+  async remove(id: number) {
+    await this.pictureRepository.delete(id);
   }
 
   assignCoordinates(id: number, coordiantes) {
