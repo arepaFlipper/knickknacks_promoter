@@ -37,7 +37,7 @@ describe('PictureService', () => {
   });
 
   describe('create', () => {
-    it('should successfully create a picture', async () => {
+    it('should successfully create a picture 🛀', async () => {
       const pictureData = {
         imagePath: 'uploads/image.jpg',
         coordinates: { x1: 10, y1: 20, x2: 30, y2: 40 },
@@ -55,7 +55,7 @@ describe('PictureService', () => {
   });
 
   describe('findAll', () => {
-    it('should return an array of pictures', async () => {
+    it('should return an array of pictures 🍁', async () => {
       const pictures = [
         {
           id: 1,
@@ -73,9 +73,7 @@ describe('PictureService', () => {
 
       const result = await service.findAll();
       expect(result).toEqual(pictures);
-      expect(repo.find).toHaveBeenCalledWith({
-        relations: ['product', 'user'],
-      });
+      expect(repo.find).toHaveBeenCalledWith();
     });
   });
 

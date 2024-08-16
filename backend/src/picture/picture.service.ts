@@ -17,8 +17,8 @@ export class PictureService {
     return await this.pictureRepository.save(picture);
   }
 
-  findAll() {
-    return `This action returns all picture`;
+  async findAll(): Promise<Picture[]> {
+    return await this.pictureRepository.find();
   }
 
   findOne(id: number) {
