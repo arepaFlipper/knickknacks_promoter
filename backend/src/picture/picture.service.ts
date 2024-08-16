@@ -1,11 +1,19 @@
 import { Injectable } from '@nestjs/common';
 import { CreatePictureDto } from './dto/create-picture.dto';
 import { UpdatePictureDto } from './dto/update-picture.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Picture } from './entities/picture.entity';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class PictureService {
+  constructor(
+    @InjectRepository(Picture)
+    private pictureRepository: Repository<Picture>,
+  ) {}
+
   create(createPictureDto: CreatePictureDto) {
-    return 'This action adds a new picture';
+    return this.pictureRepository.save(createPictureDto);
   }
 
   findAll() {
@@ -21,6 +29,10 @@ export class PictureService {
   }
 
   remove(id: number) {
+    return `This action removes a #${id} picture`;
+  }
+
+  assignCoordinates(id: number, coordiantes) {
     return `This action removes a #${id} picture`;
   }
 }
