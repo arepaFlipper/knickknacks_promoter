@@ -12,8 +12,9 @@ export class PictureService {
     private pictureRepository: Repository<Picture>,
   ) {}
 
-  create(createPictureDto: CreatePictureDto) {
-    return this.pictureRepository.save(createPictureDto);
+  async create(createPictureDto: CreatePictureDto) {
+    const picture = this.pictureRepository.create(createPictureDto);
+    return await this.pictureRepository.save(picture);
   }
 
   findAll() {
