@@ -96,7 +96,7 @@ describe('PictureService', () => {
   });
 
   describe('update', () => {
-    it('should update a picture', async () => {
+    it('should update a picture 🏫', async () => {
       const pictureId = 1;
       const updateData = { imagePath: 'uploads/updated_image.jpg' };
       const updatedPicture = {

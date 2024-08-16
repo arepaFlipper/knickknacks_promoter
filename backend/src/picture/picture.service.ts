@@ -33,8 +33,10 @@ export class PictureService {
     return picture;
   }
 
-  update(id: number, updatePictureDto: UpdatePictureDto) {
-    return `This action updates a #${id} picture`;
+  async update(id: number, updatePictureDto: UpdatePictureDto) {
+    await this.pictureRepository.update(id, updatePictureDto);
+    const updatedPicture = await this.findOne(id);
+    return updatedPicture;
   }
 
   remove(id: number) {
