@@ -15,6 +15,7 @@ describe('PictureService', () => {
     findOne: jest.fn(),
     update: jest.fn(),
     delete: jest.fn(),
+    assignCoordinates: jest.fn(),
   };
 
   beforeEach(async () => {
@@ -127,27 +128,26 @@ describe('PictureService', () => {
       });
     });
 
-    describe('assignCoordinates', () => {
-      it('should assign coordinates to a picture', async () => {
-        const pictureId = 1;
-        const coordinates = { x1: 10, y1: 10, x2: 110, y2: 110 };
-        const updatedPicture = {
-          id: pictureId,
-          imagePath: 'uploads/updated_image.jpg',
-          coordinates,
-        };
+    describe('assignCoordinates 🎖', () => {
+      it('should assign random coordinates to a picture', () => {
+        const imagePath = 'uploads/updated_image.jpg';
 
-        jest.spyOn(repo, 'update').mockResolvedValue(undefined);
-        jest
-          .spyOn(repo, 'findOne')
-          .mockResolvedValue(updatedPicture as Picture);
+        // Call the method
+        const result = service.assignCoordinates(imagePath);
 
-        const result = service.assignCoordinates(pictureId, coordinates);
-        expect(result).toEqual(updatedPicture);
-        expect(repo.update).toHaveBeenCalledWith(pictureId, { coordinates });
-        expect(repo.findOne).toHaveBeenCalledWith({
-          where: { id: pictureId },
-          relations: ['product', 'user'],
+        // Verify the returned structure
+        expect(result).toHaveProperty('imagePath', imagePath);
+        expect(result).toHaveProperty('coordinates');
+        expect(result.coordinates).toHaveProperty('x1');
+        expect(result.coordinates).toHaveProperty('y1');
+        expect(result.coordinates).toHaveProperty('x2');
+        expect(result.coordinates).toHaveProperty('y2');
+
+        // Verify that the coordinates are numbers within the expected range
+        Object.values(result.coordinates).forEach((coordinate) => {
+          expect(typeof coordinate).toBe('number');
+          expect(coordinate).toBeGreaterThanOrEqual(0);
+          expect(coordinate).toBeLessThan(100);
         });
       });
     });

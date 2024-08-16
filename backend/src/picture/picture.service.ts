@@ -4,6 +4,7 @@ import { UpdatePictureDto } from './dto/update-picture.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Picture } from './entities/picture.entity';
 import { Repository } from 'typeorm';
+import { randomInt } from 'crypto';
 
 @Injectable()
 export class PictureService {
@@ -43,7 +44,18 @@ export class PictureService {
     await this.pictureRepository.delete(id);
   }
 
-  assignCoordinates(id: number, coordiantes) {
-    return `This action removes a #${id} picture`;
+  assignCoordinates(imagePath: string): {
+    imagePath: string;
+    coordinates: { x1: number; y1: number; x2: number; y2: number };
+  } {
+    return {
+      imagePath,
+      coordinates: {
+        x1: randomInt(100),
+        y1: randomInt(100),
+        x2: randomInt(100),
+        y2: randomInt(100),
+      },
+    };
   }
 }
