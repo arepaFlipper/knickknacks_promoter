@@ -78,7 +78,7 @@ describe('PictureService', () => {
   });
 
   describe('findOne', () => {
-    it('should return a single picture', async () => {
+    it('should return a single picture 🎾', async () => {
       const picture = {
         id: 1,
         imagePath: 'uploads/image.jpg',

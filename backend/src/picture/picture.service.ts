@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreatePictureDto } from './dto/create-picture.dto';
 import { UpdatePictureDto } from './dto/update-picture.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -21,8 +21,16 @@ export class PictureService {
     return await this.pictureRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} picture`;
+  async findOne(id: number): Promise<Picture> {
+    const picture = await this.pictureRepository.findOne({
+      where: { id },
+      relations: ['product', 'user'],
+    });
+
+    if (!picture) {
+      throw new NotFoundException(`Picture with ID ${id} not found`);
+    }
+    return picture;
   }
 
   update(id: number, updatePictureDto: UpdatePictureDto) {
