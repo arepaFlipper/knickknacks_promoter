@@ -17,8 +17,8 @@ export class VendorService {
     return this.vendorRepository.save(vendor);
   }
 
-  findAll() {
-    return `This action returns all vendor`;
+  async findAll(): Promise<Vendor[]> {
+    return await this.vendorRepository.find();
   }
 
   findOne(id: number) {
