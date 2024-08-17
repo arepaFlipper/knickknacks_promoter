@@ -33,7 +33,8 @@ export class VendorService {
     return await this.findOne(id);
   }
 
-  remove(id: number) {
+  async remove(id: number) {
+    await this.vendorRepository.delete(id);
     return `This action removes a #${id} vendor`;
   }
 }
