@@ -1,5 +1,12 @@
 import { Picture } from 'src/picture/entities/picture.entity';
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Vendor } from 'src/vendor/entities/vendor.entity';
+import {
+  Column,
+  Entity,
+  ManyToMany,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity()
 export class Product {
@@ -15,6 +22,9 @@ export class Product {
   @Column('decimal', { precision: 10, scale: 2 })
   price: number;
 
-  @OneToMany(() => Picture, (picture) => picture.product)
+  @ManyToMany(() => Picture, (picture) => picture.product)
   pictures: Picture[];
+
+  @ManyToOne(() => Vendor, (vendor) => vendor.products)
+  vendor: Vendor;
 }
