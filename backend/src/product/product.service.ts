@@ -36,7 +36,7 @@ export class ProductService {
     return await this.findOne(id);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} product`;
+  async remove(id: number) {
+    await this.productRepository.delete(id);
   }
 }

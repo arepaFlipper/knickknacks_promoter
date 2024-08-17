@@ -111,12 +111,12 @@ describe('ProductService', () => {
     });
   });
 
-  describe('remove 👢', () => {
-    it('should remove a product', () => {
+  describe('remove', () => {
+    it('should remove a product 🍨', async () => {
       const productId = 1;
       jest.spyOn(repo, 'delete').mockResolvedValue(undefined);
 
-      service.remove(productId);
+      await service.remove(productId);
       expect(repo.delete).toHaveBeenCalledWith(productId);
     });
   });
