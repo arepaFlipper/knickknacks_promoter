@@ -1,3 +1,4 @@
+import { Picture } from 'src/picture/entities/picture.entity';
 import { Product } from 'src/product/entities/product.entity';
 import {
   Column,
@@ -30,4 +31,7 @@ export class User {
 
   @ManyToMany(() => Product, (product) => product.users)
   products: Product[];
+
+  @ManyToMany(() => Picture, (picture) => picture.users)
+  pictures: Picture[];
 }
