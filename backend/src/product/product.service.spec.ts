@@ -93,7 +93,7 @@ describe('ProductService', () => {
   });
 
   describe('update', () => {
-    it('should update a product 🎐 ', () => {
+    it('should update a product 🎐 ', async () => {
       const productId = 1;
       const updateData = { name: 'Updated Product' };
       const updatedProduct = { id: productId, ...updateData };
@@ -101,7 +101,7 @@ describe('ProductService', () => {
       jest.spyOn(repo, 'update').mockResolvedValue(undefined);
       jest.spyOn(repo, 'findOne').mockResolvedValue(updatedProduct as Product);
 
-      const result = service.update(productId, updateData);
+      const result = await service.update(productId, updateData);
       expect(result).toEqual(updatedProduct);
       expect(repo.update).toHaveBeenCalledWith(productId, updateData);
       expect(repo.findOne).toHaveBeenCalledWith({
