@@ -21,8 +21,11 @@ export class VendorService {
     return await this.vendorRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} vendor`;
+  async findOne(id: number) {
+    return await this.vendorRepository.findOne({
+      where: { id },
+      relations: ['products'],
+    });
   }
 
   update(id: number, updateVendorDto: UpdateVendorDto) {
