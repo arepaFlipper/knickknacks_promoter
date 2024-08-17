@@ -45,7 +45,7 @@ describe('ProductService', () => {
       jest.spyOn(repo, 'create').mockReturnValue(productData as Product);
       jest.spyOn(repo, 'save').mockResolvedValue(savedProduct as Product);
 
-      const result = service.create(productData);
+      const result = await service.create(productData);
       expect(result).toEqual(savedProduct);
       expect(repo.create).toHaveBeenCalledWith(productData);
       expect(repo.save).toHaveBeenCalledWith(productData);
