@@ -53,14 +53,26 @@ describe('ProductService', () => {
   });
 
   describe('findAll', () => {
-    it('should return an array of products 👝', () => {
-      const products = [
-        { id: 1, name: 'Product 1' },
-        { id: 2, name: 'Product 2' },
+    it('should return an array of products 👝', async () => {
+      const products: Product[] = [
+        {
+          id: 1,
+          name: 'Product 1',
+          price: 9.99,
+          description: 'Product 1',
+          pictures: [],
+        },
+        {
+          id: 2,
+          name: 'Product 2',
+          price: 10.99,
+          description: 'Product 2',
+          pictures: [],
+        },
       ];
-      jest.spyOn(repo, 'find').mockResolvedValue(products as Product[]);
+      jest.spyOn(repo, 'find').mockResolvedValue(products);
 
-      const result = service.findAll();
+      const result = await service.findAll();
       expect(result).toEqual(products);
       expect(repo.find).toHaveBeenCalledWith();
     });
