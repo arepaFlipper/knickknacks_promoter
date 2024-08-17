@@ -3,6 +3,7 @@ import { ProductService } from './product.service';
 import { Repository } from 'typeorm';
 import { Product } from './entities/product.entity';
 import { getRepositoryToken } from '@nestjs/typeorm';
+import { Vendor } from 'src/vendor/entities/vendor.entity';
 
 describe('ProductService', () => {
   let service: ProductService;
@@ -54,7 +55,7 @@ describe('ProductService', () => {
 
   describe('findAll', () => {
     it('should return an array of products 👝', async () => {
-      const products: Product[] = [
+      const products = [
         {
           id: 1,
           name: 'Product 1',
@@ -70,7 +71,7 @@ describe('ProductService', () => {
           pictures: [],
         },
       ];
-      jest.spyOn(repo, 'find').mockResolvedValue(products);
+      jest.spyOn(repo, 'find').mockResolvedValue(products as Product[]);
 
       const result = await service.findAll();
       expect(result).toEqual(products);
