@@ -93,7 +93,10 @@ describe('VendorService', () => {
       const result = await service.update(id, updateData);
       expect(result).toEqual({ id, ...updateData });
       expect(mockVendorRepository.update).toHaveBeenCalledWith(id, updateData);
-      expect(mockVendorRepository.findOne).toHaveBeenCalledWith(id);
+      expect(mockVendorRepository.findOne).toHaveBeenCalledWith({
+        where: { id: 1 },
+        relations: ['products'],
+      });
     });
   });
 

@@ -28,8 +28,9 @@ export class VendorService {
     });
   }
 
-  update(id: number, updateVendorDto: UpdateVendorDto) {
-    return `This action updates a #${id} vendor`;
+  async update(id: number, updateVendorDto: UpdateVendorDto) {
+    await this.vendorRepository.update(id, updateVendorDto);
+    return await this.findOne(id);
   }
 
   remove(id: number) {
