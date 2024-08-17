@@ -6,6 +6,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { databaseConfig } from './config/database.config';
 import { ProductModule } from './product/product.module';
 import { PictureModule } from './picture/picture.module';
+import { VendorModule } from './vendor/vendor.module';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { PictureModule } from './picture/picture.module';
     TypeOrmModule.forRoot(databaseConfig),
     ProductModule,
     PictureModule,
+    VendorModule,
   ],
   controllers: [AppController],
   providers: [AppService],
