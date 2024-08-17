@@ -40,10 +40,13 @@ export class UserService {
   }
 
   async update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
+    const user = await this.findOne(id);
+    Object.assign(user, updateUserDto);
+    return this.userRepository.save(user);
   }
 
   async remove(id: number) {
-    return `This action removes a #${id} user`;
+    const user = await this.findOne(id);
+    await this.userRepository.delete(user.id);
   }
 }

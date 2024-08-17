@@ -92,7 +92,9 @@ describe('UserService', () => {
 
       const result = await service.findOne(1);
       expect(result).toEqual(user);
-      expect(mockUserRepository.findOne).toHaveBeenCalledWith(1);
+      expect(mockUserRepository.findOne).toHaveBeenCalledWith({
+        where: { username: 'testuser' },
+      });
     });
 
     it('should throw NotFoundException if user not found', async () => {
@@ -115,8 +117,10 @@ describe('UserService', () => {
 
       const result = await service.update(1, updateData);
       expect(result).toEqual(updatedUser);
-      expect(mockUserRepository.findOne).toEqual(1);
-      expect(mockUserRepository.save).toEqual(updatedUser);
+      expect(mockUserRepository.findOne).toHaveBeenCalledWith({
+        where: { id: 1 },
+      });
+      expect(mockUserRepository.save).toHaveBeenCalledWith(updatedUser);
     });
 
     it('should throw NotFoundException if user to update is not found', async () => {
@@ -135,7 +139,9 @@ describe('UserService', () => {
       mockUserRepository.delete.mockResolvedValue({ affected: 1 });
 
       await service.remove(1);
-      expect(mockUserRepository.findOne).toHaveBeenCalledWith(1);
+      expect(mockUserRepository.findOne).toHaveBeenCalledWith({
+        where: { id: 1 },
+      });
       expect(mockUserRepository.delete).toHaveBeenCalledWith(1);
     });
   });
