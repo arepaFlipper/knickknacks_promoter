@@ -83,7 +83,7 @@ describe('ProductService', () => {
       const product = { id: 1, name: 'Product 1' };
       jest.spyOn(repo, 'findOne').mockResolvedValue(product as Product);
 
-      const result = service.findOne(1);
+      const result = await service.findOne(1);
       expect(result).toEqual(product);
       expect(repo.findOne).toHaveBeenCalledWith({
         where: { id: 1 },

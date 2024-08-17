@@ -21,8 +21,14 @@ export class ProductService {
     return await this.productRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} product`;
+  async findOne(id: number) {
+    const res = await this.productRepository.findOne({
+      where: {
+        id,
+      },
+      relations: ['vendor', 'pictures'],
+    });
+    return res;
   }
 
   update(id: number, updateProductDto: UpdateProductDto) {
