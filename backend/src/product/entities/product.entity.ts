@@ -1,4 +1,5 @@
 import { Picture } from 'src/picture/entities/picture.entity';
+import { User } from 'src/user/entities/user.entity';
 import { Vendor } from 'src/vendor/entities/vendor.entity';
 import {
   Column,
@@ -27,4 +28,7 @@ export class Product {
 
   @ManyToOne(() => Vendor, (vendor) => vendor.products)
   vendor: Vendor;
+
+  @ManyToMany(() => User, (user) => user.products)
+  users: User[];
 }
