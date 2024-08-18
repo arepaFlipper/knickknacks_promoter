@@ -34,5 +34,6 @@ export class Product {
   vendor: Vendor;
 
   @ManyToMany(() => User, (user) => user.products)
+  @JoinTable()
   users: User[];
 }

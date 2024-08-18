@@ -5,17 +5,37 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Picture } from './entities/picture.entity';
 import { Repository } from 'typeorm';
 import { randomInt } from 'crypto';
+import { User } from 'src/user/entities/user.entity';
+import { Product } from 'src/product/entities/product.entity';
 
 @Injectable()
 export class PictureService {
   constructor(
     @InjectRepository(Picture)
     private pictureRepository: Repository<Picture>,
+    @InjectRepository(Product)
+    private productRepository: Repository<Product>,
+    @InjectRepository(User)
+    private userRepository: Repository<User>,
   ) {}
 
   async create(createPictureDto: CreatePictureDto) {
-    const picture = this.pictureRepository.create(createPictureDto);
-    return await this.pictureRepository.save(picture);
+    try {
+      let product: Product | undefined;
+      if (createPictureDto.productId) {
+        product = await this.productRepository.findOne({
+          where: { id: createPictureDto.productId },
+        });
+        const pictureData = {
+          ...createPictureDto,
+          product,
+        };
+        const picture = this.pictureRepository.create(pictureData);
+        return this.productRepository.save(picture);
+      }
+    } catch (error) {
+      throw new NotFoundException(`The data is invalid`);
+    }
   }
 
   async findAll(): Promise<Picture[]> {
@@ -25,7 +45,7 @@ export class PictureService {
   async findOne(id: number): Promise<Picture> {
     const picture = await this.pictureRepository.findOne({
       where: { id },
-      relations: ['product', 'user'],
+      relations: ['product', 'users'],
     });
 
     if (!picture) {
@@ -34,10 +54,51 @@ export class PictureService {
     return picture;
   }
 
-  async update(id: number, updatePictureDto: UpdatePictureDto) {
-    await this.pictureRepository.update(id, updatePictureDto);
-    const updatedPicture = await this.findOne(id);
-    return updatedPicture;
+  async update(
+    id: number,
+    updatePictureDto: UpdatePictureDto,
+  ): Promise<Picture> {
+    const picture = await this.pictureRepository.findOne({
+      where: { id },
+      relations: ['product', 'users'],
+    });
+
+    if (!picture) {
+      throw new NotFoundException(`Picture with id ${id} not found`);
+    }
+
+    try {
+      if (updatePictureDto.productId) {
+        const product = await this.productRepository.findOne({
+          where: { id: updatePictureDto.productId },
+        });
+        if (!product) {
+          throw new NotFoundException(
+            `Product with id ${updatePictureDto.productId} not found`,
+          );
+        }
+        picture.product = product;
+      }
+
+      if (updatePictureDto.userId) {
+        const user = await this.userRepository.findOne({
+          where: { id: updatePictureDto.userId },
+        });
+        if (!user) {
+          throw new NotFoundException(
+            `User with id ${updatePictureDto.userId} not found`,
+          );
+        }
+        picture.users.push(user);
+      }
+
+      // Update picture properties
+      Object.assign(picture, updatePictureDto);
+
+      return await this.pictureRepository.save(picture);
+    } catch (error) {
+      throw new NotFoundException(`The data is invalid`);
+    }
   }
 
   async remove(id: number) {

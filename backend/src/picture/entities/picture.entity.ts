@@ -3,6 +3,7 @@ import { User } from 'src/user/entities/user.entity';
 import {
   Column,
   Entity,
+  JoinTable,
   ManyToMany,
   ManyToOne,
   PrimaryGeneratedColumn,
@@ -23,5 +24,6 @@ export class Picture {
   product: Product;
 
   @ManyToMany(() => User, (user) => user.pictures)
-  users: Product[];
+  @JoinTable()
+  users: User[];
 }
