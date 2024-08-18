@@ -20,7 +20,7 @@ export class Picture {
   @Column('json')
   coordinates: { x1: number; y1: number; x2: number; y2: number };
 
-  @ManyToOne(() => Product, (product) => product.pictures)
+  @ManyToOne(() => Product, (product) => product.pictures, { nullable: true })
   product: Product;
 
   @ManyToMany(() => User, (user) => user.pictures)

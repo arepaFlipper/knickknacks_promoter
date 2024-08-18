@@ -9,9 +9,6 @@ url = "http://localhost:3000/picture"
 picture_data = {
     "imagePath": "uploads/sample_image.jpg",
     "coordinates": {"x1": 10, "y1": 20, "x2": 30, "y2": 40},
-    "productId": product_id,
-    "vendorId": vendor_id,
-    "userId": 1  # Replace with actual user ID if needed
 }
 
 # Make the POST request to create the picture
