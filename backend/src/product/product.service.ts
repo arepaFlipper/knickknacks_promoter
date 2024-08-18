@@ -38,14 +38,14 @@ export class ProductService {
     return await this.productRepository.find();
   }
 
-  async findOne(id: number) {
-    const res = await this.productRepository.findOne({
+  async findOne(id: number): Promise<Product | undefined> {
+    const product = await this.productRepository.findOne({
       where: {
         id,
       },
       relations: ['vendor', 'pictures'],
     });
-    return res;
+    return product;
   }
 
   async update(id: number, updateProductDto: UpdateProductDto) {

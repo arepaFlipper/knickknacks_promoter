@@ -4,6 +4,8 @@ import { Vendor } from 'src/vendor/entities/vendor.entity';
 import {
   Column,
   Entity,
+  JoinColumn,
+  JoinTable,
   ManyToMany,
   ManyToOne,
   PrimaryGeneratedColumn,
@@ -24,9 +26,11 @@ export class Product {
   price: number;
 
   @ManyToMany(() => Picture, (picture) => picture.product)
+  @JoinTable()
   pictures: Picture[];
 
   @ManyToOne(() => Vendor, (vendor) => vendor.products)
+  @JoinColumn({ name: 'vendorId' })
   vendor: Vendor;
 
   @ManyToMany(() => User, (user) => user.products)
