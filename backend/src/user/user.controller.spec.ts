@@ -4,6 +4,7 @@ import { UserService } from './user.service';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from './entities/user.entity';
+import { Product } from 'src/product/entities/product.entity';
 
 describe('UserController', () => {
   let controller: UserController;
@@ -15,6 +16,7 @@ describe('UserController', () => {
       providers: [
         UserService,
         { provide: getRepositoryToken(User), useClass: Repository },
+        { provide: getRepositoryToken(Product), useClass: Repository },
       ],
     }).compile();
 

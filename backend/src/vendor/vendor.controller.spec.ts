@@ -4,6 +4,7 @@ import { VendorService } from './vendor.service';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Vendor } from './entities/vendor.entity';
 import { Repository } from 'typeorm';
+import { Product } from 'src/product/entities/product.entity';
 
 describe('VendorController', () => {
   let controller: VendorController;
@@ -15,6 +16,7 @@ describe('VendorController', () => {
       providers: [
         VendorService,
         { provide: getRepositoryToken(Vendor), useClass: Repository },
+        { provide: getRepositoryToken(Product), useClass: Repository },
       ],
     }).compile();
 

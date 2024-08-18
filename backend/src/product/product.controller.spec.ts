@@ -4,6 +4,8 @@ import { ProductService } from './product.service';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Product } from './entities/product.entity';
+import { User } from 'src/user/entities/user.entity';
+import { Picture } from 'src/picture/entities/picture.entity';
 
 describe('ProductController', () => {
   let controller: ProductController;
@@ -15,6 +17,8 @@ describe('ProductController', () => {
       providers: [
         ProductService,
         { provide: getRepositoryToken(Product), useClass: Repository },
+        { provide: getRepositoryToken(User), useClass: Repository },
+        { provide: getRepositoryToken(Picture), useClass: Repository },
       ],
     }).compile();
 

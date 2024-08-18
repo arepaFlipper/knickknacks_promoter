@@ -4,6 +4,8 @@ import { PictureService } from './picture.service';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Picture } from './entities/picture.entity';
 import { Repository } from 'typeorm';
+import { Product } from 'src/product/entities/product.entity';
+import { User } from 'src/user/entities/user.entity';
 
 describe('PictureController', () => {
   let controller: PictureController;
@@ -15,6 +17,8 @@ describe('PictureController', () => {
       providers: [
         PictureService,
         { provide: getRepositoryToken(Picture), useClass: Repository },
+        { provide: getRepositoryToken(Product), useClass: Repository },
+        { provide: getRepositoryToken(User), useClass: Repository },
       ],
     }).compile();
 
