@@ -49,8 +49,34 @@ export class ProductService {
   }
 
   async update(id: number, updateProductDto: UpdateProductDto) {
-    await this.productRepository.update(id, updateProductDto);
-    return await this.findOne(id);
+    const product = await this.productRepository.findOne({
+      where: { id },
+      relations: ['vendor'],
+    });
+
+    if (!product) {
+      throw new NotFoundException(`Product with id ${id} not found`);
+    }
+
+    try {
+      if (updateProductDto.vendorId) {
+        const vendor = await this.vendorRepository.findOne({
+          where: { id: updateProductDto.vendorId },
+        });
+        if (!vendor) {
+          throw new NotFoundException(
+            `Vendor with id ${updateProductDto.vendorId} not found`,
+          );
+        }
+        product.vendor = vendor;
+      }
+
+      Object.assign(product, updateProductDto);
+
+      return await this.productRepository.save(product);
+    } catch (error) {
+      throw new NotFoundException(`The data is invalid`);
+    }
   }
 
   async remove(id: number) {
