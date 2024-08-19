@@ -1,7 +1,7 @@
 import requests
 
 # Assuming the vendor ID is known, replace with actual vendor ID
-vendor_id = 1
+vendor_id = 5
 
 # Set up the URL and the product data
 url = "http://localhost:3000/product"

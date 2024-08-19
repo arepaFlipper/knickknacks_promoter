@@ -3,11 +3,12 @@ import requests
 # Assuming the vendor ID is known, replace with actual vendor ID
 vendor_id = 1
 
+idx = 4
 # Set up the URL and the user data
 url = "http://localhost:3000/user"
 user_data = {
-    "username": "Sampleuser",
-    "email": "user@sample.com",
+    "username": f"Sampleuser{idx}",
+    "email": f"user{idx}@sample.com",
     "password": "$trongPassword",
 }
 

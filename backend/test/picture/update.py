@@ -4,17 +4,14 @@ import requests
 BASE_URL = "http://localhost:3000"
 
 # The ID of the picture to update
-PICTURE_ID = 1
+PICTURE_ID = product_id = 9
 
-product_id = 1
-vendor_id = 1
 
 # Define the payload with the changes you want to make
 update_data = {
     "imagePath": "uploads/updated_image.jpg",
     "coordinates": {"x1": 10, "y1": 20, "x2": 30, "y2": 40},
     "productId": product_id,
-    "vendorId": vendor_id,
     "userId": 1  # Replace with actual user ID if needed
 }
 

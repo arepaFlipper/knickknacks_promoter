@@ -3,9 +3,10 @@ import requests
 # Assuming the product ID and vendor ID are known, replace with actual IDs
 # Set up the URL and the picture data
 url = "http://localhost:3000/picture/intention"
+idx = 7
 picture_data = {
-  "userId": 1,
-  "pictureId": 1,
+  "userId": idx,
+  "pictureId": idx,
 }
 
 # Make the POST request to create the picture
