@@ -10,6 +10,7 @@ import {
 import { PictureService } from './picture.service';
 import { CreatePictureDto } from './dto/create-picture.dto';
 import { UpdatePictureDto } from './dto/update-picture.dto';
+import { PurchaseIntentionDto } from './dto/purchase-intention.dto';
 
 @Controller('picture')
 export class PictureController {
@@ -33,6 +34,13 @@ export class PictureController {
   @Patch(':id')
   update(@Param('id') id: string, @Body() updatePictureDto: UpdatePictureDto) {
     return this.pictureService.update(+id, updatePictureDto);
+  }
+
+  @Post('intention')
+  recordIntention(
+    @Body() purchaseIntentionDto: PurchaseIntentionDto,
+  ): Promise<{ message: string }> {
+    return this.pictureService.recordInteraction(purchaseIntentionDto);
   }
 
   @Delete(':id')
