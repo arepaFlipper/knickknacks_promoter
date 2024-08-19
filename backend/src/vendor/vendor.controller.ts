@@ -1,4 +1,12 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { VendorService } from './vendor.service';
 import { CreateVendorDto } from './dto/create-vendor.dto';
 import { UpdateVendorDto } from './dto/update-vendor.dto';
@@ -6,6 +14,11 @@ import { UpdateVendorDto } from './dto/update-vendor.dto';
 @Controller('vendor')
 export class VendorController {
   constructor(private readonly vendorService: VendorService) {}
+
+  @Get(':id/interested-users')
+  async getInterestedUsrs(@Param('id') id: string) {
+    return this.vendorService.getInterestedUsers(+id);
+  }
 
   @Post()
   create(@Body() createVendorDto: CreateVendorDto) {
