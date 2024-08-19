@@ -32,10 +32,10 @@ export class PictureService {
           product,
         };
         const picture = this.pictureRepository.create(pictureData);
-        return this.productRepository.save(picture);
+        return this.pictureRepository.save(picture);
       } else {
         const picture = this.pictureRepository.create(createPictureDto);
-        return this.productRepository.save(picture);
+        return this.pictureRepository.save(picture);
       }
     } catch (error) {
       throw new NotFoundException(`The data is invalid`);
